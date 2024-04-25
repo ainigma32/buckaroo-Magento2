@@ -172,13 +172,7 @@ class Push implements ValidatorInterface
 
         $digitalSignature = $this->encryptor->decrypt($this->configProviderAccount->getSecretKey($store));
         $signatureString .= $digitalSignature;
-        $signature = SHA1($signatureString);
-
-        $this->logger->addDebug(
-            '[PUSH] | [Webapi] | [' . __METHOD__ . ':' . __LINE__ . '] - Calculated signature: ' . $signature,
-        );
-
-        return $signature;
+        return SHA1($signatureString);
     }
 
     /**

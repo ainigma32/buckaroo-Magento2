@@ -28,6 +28,7 @@ use Buckaroo\Magento2\Model\Push\DefaultProcessor;
 use Buckaroo\Magento2\Model\Transaction\Status\Response;
 use Magento\Framework\App\ResourceConnection;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
 use Magento\Framework\Registry;
 use Magento\Payment\Gateway\Validator\AbstractValidator;
 use Magento\Payment\Gateway\Validator\ResultInterface;
@@ -57,6 +58,11 @@ class RefundPendingApprovalValidator extends AbstractValidator
     private ResourceConnection $resourceConnection;
 
     /**
+     * @var MessageManagerInterface
+     */
+    protected $messageManager;
+
+    /**
      * @param BuckarooLoggerInterface $logger
      * @param ResultInterfaceFactory $resultFactory
      * @param RefundConfigProvider $refundConfigProvider
@@ -68,13 +74,15 @@ class RefundPendingApprovalValidator extends AbstractValidator
         ResultInterfaceFactory $resultFactory,
         RefundConfigProvider $refundConfigProvider,
         ResourceConnection $resourceConnection,
-        Registry $registry
+        Registry $registry,
+        MessageManagerInterface $messageManager
     ) {
         parent::__construct($resultFactory);
         $this->logger = $logger;
         $this->refundConfigProvider = $refundConfigProvider;
         $this->registry = $registry;
         $this->resourceConnection = $resourceConnection;
+        $this->messageManager = $messageManager;
     }
 
     /**
@@ -142,8 +150,10 @@ class RefundPendingApprovalValidator extends AbstractValidator
 
             $payment->save();
 
+            $this->messageManager->addErrorMessage(__('Refund has been initiated, but it needs to be approved, so you need to wait for an approval'));
+
             return $this->createResult(
-                false,
+                true,
                 [__('Refund has been initiated, but it needs to be approved, so you need to wait for an approval')],
                 [$statusCode]
             );
