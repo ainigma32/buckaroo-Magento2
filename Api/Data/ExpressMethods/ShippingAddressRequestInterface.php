@@ -60,6 +60,50 @@ interface ShippingAddressRequestInterface
     public function setState(string $state);
 
     /**
+     * Set phone number
+     *
+     * @param string $phoneNumber
+     *
+     * @return void
+     */
+    public function setPhoneNumber(string $phoneNumber);
+
+    /**
+     * Set first name
+     *
+     * @param string $firstName
+     *
+     * @return void
+     */
+    public function setFirstname(string $firstname);
+
+    /**
+     * Set last name
+     *
+     * @param string $lastname
+     *
+     * @return void
+     */
+    public function setLastname(string $lastname);
+
+    /**
+     * Set email
+     *
+     * @param string $email
+     *
+     * @return void
+     */
+    public function setEmail(string $email);
+
+    /**
+     * Set street
+     *
+     * @param string $street
+     *
+     * @return void
+     */
+    public function setStreet(string $street);
+    /**
      * Get city
      *
      * @return string
@@ -86,4 +130,39 @@ interface ShippingAddressRequestInterface
      * @return string|null
      */
     public function getState(): ?string;
+
+    /**
+     * Get phone number
+     *
+     * @return string|null
+     */
+    public function getPhoneNumber(): ?string;
+
+    /**
+     * Get first name
+     *
+     * @return string|null
+     */
+    public function getFirstname(): ?string;
+
+    /**
+     * Get last name
+     *
+     * @return string|null
+     */
+    public function getLastname(): ?string;
+
+    /**
+     * Get email
+     *
+     * @return string|null
+     */
+    public function getEmail(): string;
+
+    /**
+     * Get street
+     *
+     * @return string|null
+     */
+    public function getStreet(): ?string;
 }

@@ -18,16 +18,16 @@
  * @license   https://tldrlegal.com/license/mit-license
  */
 
-namespace Buckaroo\Magento2\Api\Data\PaypalExpress;
+namespace Buckaroo\Magento2\Api\Data;
 
-use Buckaroo\Magento2\Api\Data\PaypalExpress\BreakdownItemInterface;
+use Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterface;
 
 interface QuoteCreateResponseInterface extends BreakdownItemInterface
 {
     /**
      * Get order breakdown
      *
-     * @return \Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterface
+     * @return TotalBreakdownInterface
      */
     public function getBreakdown();
 
