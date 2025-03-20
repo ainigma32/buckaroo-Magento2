@@ -669,70 +669,70 @@ class Push implements PushInterface
 
     private function receivePushCheckDuplicates($receivedStatusCode = null, $trxId = null)
     {
-        $this->logging->addDebug(__METHOD__ . '|1|' . var_export($this->order->getPayment()->getMethod(), true));
-
-        $save = false;
-        if (!$receivedStatusCode) {
-            $save = true;
-            if (empty($this->postData['brq_statuscode'])) {
-                return false;
-            }
-            $receivedStatusCode = $this->postData['brq_statuscode'];
-        }
-        if (!$trxId) {
-            if (empty($this->postData['brq_transactions'])) {
-                return false;
-            }
-            $trxId = $this->postData['brq_transactions'];
-        }
-        $payment               = $this->order->getPayment();
-        $ignoredPaymentMethods = [
-            Giftcards::PAYMENT_METHOD_CODE,
-            Transfer::PAYMENT_METHOD_CODE
-        ];
-
-        $isRefund = isset($this->postData['brq_amount_credit']) && $this->postData['brq_amount_credit'] > 0;
-
-        if ($payment
-            && $payment->getMethod()
-            && $receivedStatusCode
-            && ($this->getTransactionType() == self::BUCK_PUSH_TYPE_TRANSACTION)
-            && ((!in_array($payment->getMethod(), $ignoredPaymentMethods)) || $isRefund)
-        ) {
-            $this->logging->addDebug(__METHOD__ . '|5|');
-
-            $receivedTrxStatuses = $payment->getAdditionalInformation(
-                self::BUCKAROO_RECEIVED_TRANSACTIONS_STATUSES
-            );
-            $this->logging->addDebug(__METHOD__ . '|10|' .
-                var_export([$receivedTrxStatuses, $receivedStatusCode], true));
-            if ($receivedTrxStatuses
-                && is_array($receivedTrxStatuses)
-                && !empty($trxId)
-                && isset($receivedTrxStatuses[$trxId])
-                && ($receivedTrxStatuses[$trxId] == $receivedStatusCode)
-            ) {
-                $orderStatus = $this->helper->getOrderStatusByState($this->order, Order::STATE_NEW);
-                $statusCode = $this->helper->getStatusCode('BUCKAROO_MAGENTO2_STATUSCODE_SUCCESS');
-                if (($this->order->getState() == Order::STATE_NEW)
-                    && ($this->order->getStatus() == $orderStatus)
-                    && ($receivedStatusCode == $statusCode)
-                ) {
-                    //allow duplicated pushes for 190 statuses in case if order stills to be new/pending
-                    $this->logging->addDebug(__METHOD__ . '|13|');
-                    return false;
-                }
-
-                $this->logging->addDebug(__METHOD__ . '|15|');
-                return true;
-            }
-            if ($save) {
-                $this->logging->addDebug(__METHOD__ . '|17|');
-                $this->setReceivedTransactionStatuses();
-                $payment->save();
-            }
-        }
-        $this->logging->addDebug(__METHOD__ . '|20|');
+//        $this->logging->addDebug(__METHOD__ . '|1|' . var_export($this->order->getPayment()->getMethod(), true));
+//
+//        $save = false;
+//        if (!$receivedStatusCode) {
+//            $save = true;
+//            if (empty($this->postData['brq_statuscode'])) {
+//                return false;
+//            }
+//            $receivedStatusCode = $this->postData['brq_statuscode'];
+//        }
+//        if (!$trxId) {
+//            if (empty($this->postData['brq_transactions'])) {
+//                return false;
+//            }
+//            $trxId = $this->postData['brq_transactions'];
+//        }
+//        $payment               = $this->order->getPayment();
+//        $ignoredPaymentMethods = [
+//            Giftcards::PAYMENT_METHOD_CODE,
+//            Transfer::PAYMENT_METHOD_CODE
+//        ];
+//
+//        $isRefund = isset($this->postData['brq_amount_credit']) && $this->postData['brq_amount_credit'] > 0;
+//
+//        if ($payment
+//            && $payment->getMethod()
+//            && $receivedStatusCode
+//            && ($this->getTransactionType() == self::BUCK_PUSH_TYPE_TRANSACTION)
+//            && ((!in_array($payment->getMethod(), $ignoredPaymentMethods)) || $isRefund)
+//        ) {
+//            $this->logging->addDebug(__METHOD__ . '|5|');
+//
+//            $receivedTrxStatuses = $payment->getAdditionalInformation(
+//                self::BUCKAROO_RECEIVED_TRANSACTIONS_STATUSES
+//            );
+//            $this->logging->addDebug(__METHOD__ . '|10|' .
+//                var_export([$receivedTrxStatuses, $receivedStatusCode], true));
+//            if ($receivedTrxStatuses
+//                && is_array($receivedTrxStatuses)
+//                && !empty($trxId)
+//                && isset($receivedTrxStatuses[$trxId])
+//                && ($receivedTrxStatuses[$trxId] == $receivedStatusCode)
+//            ) {
+//                $orderStatus = $this->helper->getOrderStatusByState($this->order, Order::STATE_NEW);
+//                $statusCode = $this->helper->getStatusCode('BUCKAROO_MAGENTO2_STATUSCODE_SUCCESS');
+//                if (($this->order->getState() == Order::STATE_NEW)
+//                    && ($this->order->getStatus() == $orderStatus)
+//                    && ($receivedStatusCode == $statusCode)
+//                ) {
+//                    //allow duplicated pushes for 190 statuses in case if order stills to be new/pending
+//                    $this->logging->addDebug(__METHOD__ . '|13|');
+//                    return false;
+//                }
+//
+//                $this->logging->addDebug(__METHOD__ . '|15|');
+//                return true;
+//            }
+//            if ($save) {
+//                $this->logging->addDebug(__METHOD__ . '|17|');
+//                $this->setReceivedTransactionStatuses();
+//                $payment->save();
+//            }
+//        }
+//        $this->logging->addDebug(__METHOD__ . '|20|');
         return false;
     }
 
