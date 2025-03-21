@@ -1749,6 +1749,14 @@ class Push implements PushInterface
      */
     protected function updateOrderStatus($orderState, $newStatus, $description, $force = false)
     {
+        $defaultStatus = $this->helper->getOrderStatusByState($this->order, $orderState);
+        if ($this->order->getStatus() !== $defaultStatus) {
+            $this->logging->addDebug(__METHOD__ . '|Preserving custom status: ' . $this->order->getStatus());
+            // Just add the comment without updating the state.
+            $this->order->addCommentToStatusHistory($description);
+            return;
+        }
+
         $this->logging->addDebug(sprintf(
             '[ORDER] | [Service] | [%s:%s] - Updates the order state and add a comment | data: %s',
             __METHOD__,
