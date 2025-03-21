@@ -1745,7 +1745,7 @@ class Push implements PushInterface
             $defaultStatus = $this->helper->getOrderStatusByState($this->order, $orderState);
             if ($this->order->getStatus() !== $defaultStatus) {
                 $this->logging->addDebug(__METHOD__ . '|Custom ApplePay status detected (' . $this->order->getStatus() . '), preserving custom status.');
-                $this->order->addCommentToStatusHistory($description);
+                //$this->order->addCommentToStatusHistory($description);
                 return;
             }
         }
