@@ -1741,6 +1741,14 @@ class Push implements PushInterface
      */
     protected function updateOrderStatus($orderState, $newStatus, $description, $force = false)
     {
+        if ($this->order->getPayment()->getMethod() === 'buckaroo_magento2_applepay') {
+            $defaultStatus = $this->helper->getOrderStatusByState($this->order, $orderState);
+            if ($this->order->getStatus() !== $defaultStatus) {
+                $this->logging->addDebug(__METHOD__ . '|Custom ApplePay status detected (' . $this->order->getStatus() . '), preserving custom status.');
+                $this->order->addCommentToStatusHistory($description);
+                return;
+            }
+        }
         $this->logging->addDebug(sprintf(
             '[ORDER] | [Service] | [%s:%s] - Updates the order state and add a comment | data: %s',
             __METHOD__,
