@@ -1820,8 +1820,13 @@ class Push implements PushInterface
             $payment->save();
 
             if($this->hasPostData('brq_transaction_method', 'transfer')){
-                $this->order->setIsInProcess(true);
-                $this->order->save();
+                $defaultProcessingStatus = 'processing';
+                if ($this->order->getStatus() === $defaultProcessingStatus) {
+                    $this->order->setIsInProcess(true);
+                    $this->order->save();
+                } else {
+                    $this->logging->addDebug('Custom order status detected (' . $this->order->getStatus() . '), preserving it.');
+                }
             }
 
             return true;

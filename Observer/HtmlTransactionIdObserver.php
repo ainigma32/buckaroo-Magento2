@@ -52,7 +52,7 @@ class HtmlTransactionIdObserver implements ObserverInterface
     public function execute(Observer $observer)
     {
         /** @var Transaction $transaction */
-       /* $transaction = $observer->getDataObject();
+        $transaction = $observer->getDataObject();
         $order = $transaction->getOrder();
 
         $txnIdArray = explode("-", $transaction->getTxnId());
@@ -86,7 +86,7 @@ class HtmlTransactionIdObserver implements ObserverInterface
                     $transaction->getTxnId()
                 )
             );
-        }*/
+        }
     }
 
     /**
@@ -96,11 +96,11 @@ class HtmlTransactionIdObserver implements ObserverInterface
      *
      * @return boolean
      */
-    /*public function isBuckarooPayment($payment)
+    public function isBuckarooPayment($payment)
     {
         if (!$payment instanceof OrderPaymentInterface) {
             return false;
         }
         return strpos($payment->getMethod(), 'buckaroo_magento2') !== false;
-    }*/
+    }
 }
