@@ -1898,8 +1898,13 @@ class Push implements PushInterface
 
         $this->logging->addDebug(__METHOD__ . '|35|');
 
-        $this->order->setIsInProcess(true);
-        $this->order->save();
+        $defaultProcessingStatus = 'processing';
+        if ($this->order->getStatus() === $defaultProcessingStatus) {
+            $this->order->setIsInProcess(true);
+            $this->order->save();
+        } else {
+            $this->logging->addDebug('Custom order status detected (' . $this->order->getStatus() . '), preserving it.');
+        }
 
         $this->dontSaveOrderUponSuccessPush = true;
 
