@@ -672,9 +672,17 @@ class Push implements PushInterface
         $payment = $this->order->getPayment();
 
         // NEW: Allow duplicate pushes for Apple Pay if no invoice exists.
-        if ($payment && $payment->getMethod() === 'buckaroo_magento2_applepay' && !$this->order->hasInvoices()) {
-            $this->logging->addDebug(__METHOD__ . '|ApplePay: No invoice created, bypass duplicate check.');
-            return false;
+        if ($payment && $payment->getMethod() === 'buckaroo_magento2_applepay') {
+            if (!$this->order->hasInvoices()) {
+                $this->logging->addDebug(__METHOD__ . '|ApplePay: No invoice exists. Attempting to create invoice for duplicate push.');
+                if ($this->saveInvoice()) {
+                    $this->logging->addDebug(__METHOD__ . '|ApplePay: Invoice created successfully. Stopping further processing as push is duplicate.');
+                    // Return true to indicate the duplicate push has been handled by creating the invoice.
+                    return true;
+                } else {
+                    $this->logging->addDebug(__METHOD__ . '|ApplePay: Invoice creation failed. Proceeding with normal duplicate check.');
+                }
+            }
         }
 
         $this->logging->addDebug(__METHOD__ . '|1|' . var_export($payment->getMethod(), true));
@@ -693,7 +701,7 @@ class Push implements PushInterface
             }
             $trxId = $this->postData['brq_transactions'];
         }
-
+        $payment               = $this->order->getPayment();
         $ignoredPaymentMethods = [
             Giftcards::PAYMENT_METHOD_CODE,
             Transfer::PAYMENT_METHOD_CODE
@@ -1741,14 +1749,6 @@ class Push implements PushInterface
      */
     protected function updateOrderStatus($orderState, $newStatus, $description, $force = false)
     {
-        if ($this->order->getPayment()->getMethod() === 'buckaroo_magento2_applepay') {
-            $defaultStatus = $this->helper->getOrderStatusByState($this->order, $orderState);
-            if ($this->order->getStatus() !== $defaultStatus) {
-                $this->logging->addDebug(__METHOD__ . '|Custom ApplePay status detected (' . $this->order->getStatus() . '), preserving custom status.');
-                //$this->order->addCommentToStatusHistory($description);
-                return;
-            }
-        }
         $this->logging->addDebug(sprintf(
             '[ORDER] | [Service] | [%s:%s] - Updates the order state and add a comment | data: %s',
             __METHOD__,
@@ -1820,8 +1820,13 @@ class Push implements PushInterface
             $payment->save();
 
             if($this->hasPostData('brq_transaction_method', 'transfer')){
-                $this->order->setIsInProcess(true);
-                $this->order->save();
+                $defaultProcessingStatus = 'processing';
+                if ($this->order->getStatus() === $defaultProcessingStatus) {
+                    $this->order->setIsInProcess(true);
+                    $this->order->save();
+                } else {
+                    $this->logging->addDebug('Custom order status detected (' . $this->order->getStatus() . '), preserving it.');
+                }
             }
 
             return true;
