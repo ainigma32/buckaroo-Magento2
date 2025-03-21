@@ -1854,13 +1854,7 @@ class Push implements PushInterface
             $this->order->addRelatedObject($invoice);
             $payment->setCreatedInvoice($invoice);
             $payment->setShouldCloseParentTransaction(true);
-        } elseif($this->hasPostData('brq_transaction_method', 'applepay')){
-            $invoice = $this->order->prepareInvoice()->register();
-            $invoice->setOrder($this->order);
-            $this->order->addRelatedObject($invoice);
-            $this->order->save();
-        }
-        else {
+        } else {
             $this->logging->addDebug(__METHOD__ . '|15|');
             //Fix for suspected fraud when the order currency does not match with the payment's currency
             $amount = ($payment->isSameCurrency()
