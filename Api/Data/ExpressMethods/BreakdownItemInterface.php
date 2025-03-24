@@ -18,23 +18,21 @@
  * @license   https://tldrlegal.com/license/mit-license
  */
 
-namespace Buckaroo\Magento2\Api\Data;
+namespace Buckaroo\Magento2\Api\Data\ExpressMethods;
 
-use Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface;
-
-interface QuoteCreateResponseInterface extends BreakdownItemInterface
+interface BreakdownItemInterface
 {
     /**
-     * Get order breakdown
-     *
-     * @return TotalBreakdownInterface
-     */
-    public function getBreakdown(): TotalBreakdownInterface;
-
-    /**
-     * Get masked cart id
+     * Get currency code
      *
      * @return string
      */
-    public function getCartId();
+    public function getCurrencyCode(): string;
+
+    /**
+     * Get amount
+     *
+     * @return string
+     */
+    public function getValue(): string;
 }

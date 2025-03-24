@@ -21,11 +21,11 @@ declare(strict_types=1);
 
 namespace Buckaroo\Magento2\Model\Response;
 
-use Buckaroo\Magento2\Api\Data\BreakdownItemInterface;
-use Buckaroo\Magento2\Api\Data\PaypalExpress\BreakdownItemInterfaceFactory;
+use Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface;
+use Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterfaceFactory;
 use Buckaroo\Magento2\Api\Data\TotalBreakdownInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
-use Magento\Quote\Api\CartTotalRepositoryInterface;
+use Magento\Quote\Model\Cart\CartTotalRepository;
 use Magento\Quote\Model\Quote;
 
 class TotalBreakdown implements TotalBreakdownInterface
@@ -41,19 +41,19 @@ class TotalBreakdown implements TotalBreakdownInterface
     protected Quote $quote;
 
     /**
-     * @var CartTotalRepositoryInterface
+     * @var CartTotalRepository
      */
-    protected CartTotalRepositoryInterface $cartTotalRepository;
+    protected CartTotalRepository $cartTotalRepository;
 
     /**
      * @param Quote $quote
      * @param BreakdownItemInterfaceFactory $breakdownItemFactory
-     * @param CartTotalRepositoryInterface $cartTotalRepository
+     * @param CartTotalRepository $cartTotalRepository
      */
     public function __construct(
         Quote $quote,
         BreakdownItemInterfaceFactory $breakdownItemFactory,
-        CartTotalRepositoryInterface $cartTotalRepository
+        CartTotalRepository $cartTotalRepository
     ) {
         $this->breakdownItemFactory = $breakdownItemFactory;
         $this->quote = $quote;
@@ -63,7 +63,7 @@ class TotalBreakdown implements TotalBreakdownInterface
     /**
      * Get subtotal
      *
-     * @return BreakdownItemInterface
+     * @return \Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface
      */
     public function getItemTotal(): BreakdownItemInterface
     {
@@ -93,7 +93,7 @@ class TotalBreakdown implements TotalBreakdownInterface
     /**
      * Get taxes
      *
-     * @return BreakdownItemInterface
+     * @return \Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface
      */
     public function getTaxTotal(): BreakdownItemInterface
     {
@@ -121,6 +121,6 @@ class TotalBreakdown implements TotalBreakdownInterface
             return 0;
         }
 
-        return round($totals[$type]->getValue(), 2);
+        return round((float)$totals[$type]->getValue(), 2);
     }
 }

@@ -21,7 +21,7 @@ declare(strict_types=1);
 
 namespace Buckaroo\Magento2\Model\Response;
 
-use Buckaroo\Magento2\Api\Data\BreakdownItemInterface;
+use Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface;
 
 class BreakdownItem implements BreakdownItemInterface
 {

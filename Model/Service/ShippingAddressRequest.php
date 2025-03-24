@@ -129,4 +129,55 @@ class ShippingAddressRequest implements ShippingAddressRequestInterface
     {
         $this->state = $state;
     }
+
+    public function setFirstname(string $firstname)
+    {
+        // TODO: Implement setFirstname() method.
+    }
+
+    public function setLastname(string $lastname)
+    {
+        // TODO: Implement setLastname() method.
+    }
+
+    public function setEmail(string $email)
+    {
+        // TODO: Implement setEmail() method.
+    }
+
+    public function setStreet(string $street)
+    {
+        // TODO: Implement setStreet() method.
+    }
+
+
+    public function getFirstname(): ?string
+    {
+        // TODO: Implement getFirstname() method.
+    }
+
+    public function getLastname(): ?string
+    {
+        // TODO: Implement getLastname() method.
+    }
+
+    public function getEmail(): string
+    {
+        // TODO: Implement getEmail() method.
+    }
+
+    public function getStreet(): ?string
+    {
+        // TODO: Implement getStreet() method.
+    }
+
+    public function setTelephone(string $phoneNumber)
+    {
+        // TODO: Implement setTelephone() method.
+    }
+
+    public function getTelephone(): ?string
+    {
+        // TODO: Implement getTelephone() method.
+    }
 }

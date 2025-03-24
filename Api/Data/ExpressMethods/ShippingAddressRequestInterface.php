@@ -66,7 +66,7 @@ interface ShippingAddressRequestInterface
      *
      * @return void
      */
-    public function setPhoneNumber(string $phoneNumber);
+    public function setTelephone(string $phoneNumber);
 
     /**
      * Set first name
@@ -136,7 +136,7 @@ interface ShippingAddressRequestInterface
      *
      * @return string|null
      */
-    public function getPhoneNumber(): ?string;
+    public function getTelephone(): ?string;
 
     /**
      * Get first name
