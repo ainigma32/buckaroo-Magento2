@@ -20,8 +20,6 @@
 
 namespace Buckaroo\Magento2\Api\Data;
 
-use Buckaroo\Magento2\Api\Data\ExpressMethods\BreakdownItemInterface;
-
 interface TotalBreakdownInterface
 {
     /**

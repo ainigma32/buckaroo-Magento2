@@ -18,7 +18,7 @@
  * @license   https://tldrlegal.com/license/mit-license
  */
 
-namespace Buckaroo\Magento2\Api\Data\ExpressMethods;
+namespace Buckaroo\Magento2\Api\Data;
 
 interface BreakdownItemInterface
 {
