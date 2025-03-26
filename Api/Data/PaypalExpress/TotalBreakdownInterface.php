@@ -18,7 +18,9 @@
  * @license   https://tldrlegal.com/license/mit-license
  */
 
-namespace Buckaroo\Magento2\Api\Data;
+namespace Buckaroo\Magento2\Api\Data\PaypalExpress;
+
+use Buckaroo\Magento2\Api\Data\BreakdownItemInterface;
 
 interface TotalBreakdownInterface
 {

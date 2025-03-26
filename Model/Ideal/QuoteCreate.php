@@ -19,7 +19,6 @@
  */
 namespace Buckaroo\Magento2\Model\Ideal;
 
-use Buckaroo\Magento2\Api\Data\ExpressMethods\ShippingAddressRequestInterface;
 use Buckaroo\Magento2\Api\Data\QuoteCreateResponseInterface;
 use Magento\Customer\Api\Data\AddressInterface;
 use Magento\Framework\Exception\InputException;
@@ -87,7 +86,7 @@ class QuoteCreate implements IdealQuoteCreateInterface
      * @return QuoteCreateResponseInterface
      * @throws IdealException
      */
-    public function execute(ShippingAddressRequestInterface $shipping_address,string $page, string $form_data = null)
+    public function execute(string $page, string $form_data = null)
     {
         try {
             if ($page === 'product' && is_string($form_data)) {
@@ -298,6 +297,7 @@ class QuoteCreate implements IdealQuoteCreateInterface
      */
     protected function createQuote(string $form_data)
     {
+
         try {
             $quoteBuilder = $this->quoteBuilderInterfaceFactory->create();
             $quoteBuilder->setFormData($form_data);

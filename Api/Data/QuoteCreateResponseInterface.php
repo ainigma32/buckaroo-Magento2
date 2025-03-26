@@ -19,6 +19,8 @@
  */
 namespace Buckaroo\Magento2\Api\Data;
 
+use Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterface;
+
 interface QuoteCreateResponseInterface extends BreakdownItemInterface
 {
     /**

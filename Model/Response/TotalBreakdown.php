@@ -23,12 +23,11 @@ namespace Buckaroo\Magento2\Model\Response;
 
 use Buckaroo\Magento2\Api\Data\BreakdownItemInterface;
 use Buckaroo\Magento2\Api\Data\BreakdownItemInterfaceFactory;
-use Buckaroo\Magento2\Api\Data\TotalBreakdownInterface;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Quote\Model\Cart\CartTotalRepository;
 use Magento\Quote\Model\Quote;
 
-class TotalBreakdown implements TotalBreakdownInterface
+class TotalBreakdown implements \Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterface
 {
 
     /**

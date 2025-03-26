@@ -112,7 +112,7 @@ class IdealFastCheckout extends Template
      *
      * @return mixed
      */
-    public function isButtonEnabled()
+    public function isButtonEnabled(): mixed
     {
         return $this->idealConfig->isFastCheckoutEnabled(
             $this->_storeManager->getStore()

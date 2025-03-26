@@ -64,7 +64,7 @@
 
     <!-- Express payment methods: Apple Pay, PayPal Express, Ideal Fast Checkout -->
     <preference for="Buckaroo\Magento2\Model\Service\QuoteBuilderInterface" type="Buckaroo\Magento2\Model\Service\QuoteBuilder" />
-    <preference for="Buckaroo\Magento2\Api\Data\TotalBreakdownInterface" type="Buckaroo\Magento2\Model\Response\TotalBreakdown" />
+    <preference for="Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterface" type="Buckaroo\Magento2\Model\Response\TotalBreakdown" />
     <preference for="Buckaroo\Magento2\Api\Data\BreakdownItemInterface" type="Buckaroo\Magento2\Model\Response\BreakdownItem" />
     <preference for="Buckaroo\Magento2\Api\Data\QuoteCreateResponseInterface" type="Buckaroo\Magento2\Model\Response\QuoteCreate" />
 

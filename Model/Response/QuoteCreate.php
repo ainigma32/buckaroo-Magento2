@@ -20,9 +20,8 @@
 
 namespace Buckaroo\Magento2\Model\Response;
 
-use Buckaroo\Magento2\Api\Data\TotalBreakdownInterfaceFactory;
-use Buckaroo\Magento2\Api\Data\TotalBreakdownInterface;
 use Buckaroo\Magento2\Api\Data\QuoteCreateResponseInterface;
+use Buckaroo\Magento2\Api\Data\PaypalExpress\TotalBreakdownInterfaceFactory;
 use Magento\Quote\Model\Quote;
 use Magento\Quote\Model\QuoteIdMaskFactory;
 use Magento\Quote\Model\ResourceModel\Quote\QuoteIdMask as QuoteIdMaskResource;
@@ -70,7 +69,7 @@ class QuoteCreate implements QuoteCreateResponseInterface
     /**
      * @inheritdoc
      */
-    public function getBreakdown(): TotalBreakdownInterface
+    public function getBreakdown()
     {
         return $this->totalBreakdownFactory->create(["quote" => $this->quote]);
     }

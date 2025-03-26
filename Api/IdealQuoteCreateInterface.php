@@ -21,7 +21,6 @@
 
 namespace Buckaroo\Magento2\Api;
 
-use Buckaroo\Magento2\Api\Data\ExpressMethods\ShippingAddressRequestInterface;
 use Buckaroo\Magento2\Api\Data\QuoteCreateResponseInterface;
 
 interface IdealQuoteCreateInterface
@@ -29,13 +28,11 @@ interface IdealQuoteCreateInterface
     /**
      * Get order breakdown after shipping is applied
      *
-     * @param ShippingAddressRequestInterface $shipping_address
      * @param string $page
      * @param string|null $order_data
      * @return QuoteCreateResponseInterface
      */
     public function execute(
-        ShippingAddressRequestInterface $shipping_address,
         string $page,
         string $order_data = null
     );

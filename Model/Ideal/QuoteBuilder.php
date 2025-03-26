@@ -88,6 +88,7 @@ class QuoteBuilder implements QuoteBuilderInterface
     public function build()
     {
         $this->quote = $this->quoteFactory->create();
+        $this->quote->setIsCheckoutCart(true);
         $this->addProduct();
         $this->setUser();
         return $this->quote;
